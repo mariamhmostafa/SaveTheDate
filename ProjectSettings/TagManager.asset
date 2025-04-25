@@ -9,6 +9,9 @@ TagManager:
   - Suit
   - Ring
   - Ground
+  - Flowers
+  - Cake
+  - Letter
   layers:
   - Default
   - TransparentFX
@@ -43,6 +46,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2677770135
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 4259433505
     locked: 0
