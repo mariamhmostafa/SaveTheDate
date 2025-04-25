@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Runtime.InteropServices;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-       Time.timeScale = 0f;
+        Time.timeScale = 0f;
     }
 
     private void Awake()

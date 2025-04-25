@@ -9,10 +9,12 @@ public class StartGameManager : MonoBehaviour
     private bool hasStarted = false;
     public TMP_Text textToBlink;
     public float blinkRate = 0.5f;
+    private bool canStart = false;
 
     void Start()
     {
         StartCoroutine(Blink());
+        StartCoroutine(DelayBeforeAllowStart());
     }
 
     private IEnumerator Blink()
@@ -24,9 +26,15 @@ public class StartGameManager : MonoBehaviour
         }
     }
 
+     private IEnumerator DelayBeforeAllowStart()
+    {
+        yield return new WaitForSecondsRealtime(1.5f); 
+        canStart = true;
+    }
+
     private void Update()
     {
-        if (!hasStarted)
+        if (!hasStarted && canStart) 
         {
             if (Input.touchCount > 0 || Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
             {
@@ -43,7 +51,7 @@ public class StartGameManager : MonoBehaviour
         {
             backgroundMusic.Play();
         }
-        
+
         Time.timeScale = 1;
     }
 }
