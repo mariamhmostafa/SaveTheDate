@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private Animator animator;
     private bool jumpPressed = false;
+    private bool isGameStarted = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -19,32 +21,45 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
-        // Handle mouse or touch input
-        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        if(!isGameStarted){
+            if (Input.touchCount > 0 || Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+            {
+                isGameStarted= true;
+                return;
+            }
+        }
+        if (Input.touchCount > 0)
         {
-            // Debug.Log("Jump Pressed");
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                jumpPressed = true;
+            }
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
             jumpPressed = true;
         }
-        if(moveSpeed>0){
-            // set animator trigger to run
-            // animator.SetTrigger("startRunning");
-        }else{
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jumpPressed = true;
+        }
+
+        if (moveSpeed <= 0)
+        {
             animator.SetTrigger("stopRunning");
         }
-        rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
 
-        // Debug.Log($"MoveSpeed: {moveSpeed}, IsGrounded: {isGrounded}");
+        rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
 
         if (jumpPressed && isGrounded)
         {
-            Debug.Log("Jump Pressed");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             isGrounded = false;
             jumpPressed = false;
         }
-
     }
+
 
     private void OnCollisionEnter2D(Collision2D other)
     {

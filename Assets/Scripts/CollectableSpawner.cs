@@ -29,7 +29,7 @@ public class CollectableSpawner : MonoBehaviour
             spawnX += spacing;
         }
 
-        lastCollectableX = spawnX - spacing + 5; 
+        lastCollectableX = spawnX - spacing + 10; 
     }
 
     private void Update()

@@ -20,6 +20,11 @@ public class GameManager : MonoBehaviour
     private int totalCollectables;
     private int collectedCount;
 
+    private void Start()
+    {
+       Time.timeScale = 0f;
+    }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -27,7 +32,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
     }
 
